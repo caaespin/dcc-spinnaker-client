@@ -241,6 +241,14 @@ def getDataObj(dict, schema):
     Pull data out from dict. Use the flattened schema to get the key names as well as validate.
     If validation fails, return None.
     """
+    #HACK
+    dict['donor_uuid'] = ''
+    dict['specimen_uuid'] = ''
+    dict['sample_uuid'] = ''
+    dict['upload_file_id'] = ''
+    dict['data_bundle_id'] = ''
+    dict['metadata.json'] = ''
+    #set the uuids.
     setUuids(dict)
 
 #     schema["properties"]["workflow_uuid"] = {"type": "string"}
@@ -440,8 +448,13 @@ def writeDataBundleDirs(structuredMetaDataObjMap, outputDir):
             filename = os.path.basename(file_path)
             linkPath = os.path.join(bundlePath, filename)
             mkdir_p(bundlePath)
-            ln_s(fullFilePath, linkPath)
-
+            #ln_s(fullFilePath, linkPath)
+            #HACK
+            file_path2 = "/dcc/dcc-spinnaker-client/samples/demo.fastq.gz"
+            filename2 = os.path.basename(file_path2)
+            linkPath2 = os.path.join(bundlePath, filename2)
+            ln_s(file_path2, linkPath2)      
+      
         # write metadata
         numFilesWritten += writeJson(bundlePath, "metadata.json", metaObj)
 
@@ -568,8 +581,9 @@ def collectReceiptData(manifestData, metadataObj):
         data["file_path"] = output["file_path"]
 
         fileName = os.path.basename(output["file_path"])
-        data["file_uuid"] = manifestData[fileName]
-
+    
+        #data["file_uuid"] = manifestData[fileName]
+        data["file_uuid"] = manifestData['demo.fastq.gz']
         collectedData.append(data)
 
     return collectedData

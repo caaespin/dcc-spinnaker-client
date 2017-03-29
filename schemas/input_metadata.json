@@ -3,6 +3,7 @@
     "title": "metadata_flattened.json",
     "description": "generate_metadata.py uses this schema to pull out data from users' metadata tsv's or xls's",
     "type": "object",
+    "required": ["program", "project", "center_name", "submitter_donor_id", "submitter_donor_primary_site", "submitter_specimen_id", "submitter_specimen_type", "submitter_experimental_design", "submitter_sample_id", "analysis_type", "workflow_name", "workflow_version", "file_type", "file_path"],
     "properties": {
         "program": {
             "type": "string"
