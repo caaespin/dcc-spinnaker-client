@@ -452,8 +452,8 @@ def writeDataBundleDirs(structuredMetaDataObjMap, outputDir):
             #HACK
             file_path2 = "/dcc/dcc-spinnaker-client/samples/demo.fastq.gz"
             filename2 = os.path.basename(file_path2)
-            linkPath2 = os.path.join(bundlePath, filename2)
-            ln_s(file_path2, linkPath2)      
+            #linkPath2 = os.path.join(bundlePath, )
+            ln_s(file_path2, linkPath)      
       
         # write metadata
         numFilesWritten += writeJson(bundlePath, "metadata.json", metaObj)
@@ -582,8 +582,8 @@ def collectReceiptData(manifestData, metadataObj):
 
         fileName = os.path.basename(output["file_path"])
     
-        #data["file_uuid"] = manifestData[fileName]
-        data["file_uuid"] = manifestData['demo.fastq.gz']
+        data["file_uuid"] = manifestData[fileName]
+        #data["file_uuid"] = manifestData['demo.fastq.gz']
         collectedData.append(data)
 
     return collectedData
