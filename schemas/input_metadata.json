@@ -55,6 +55,9 @@
         },
         "file_path": {
             "type": "string"
-        }
+        },
+        "cloud":{
+            "type": "string"
+        } 
     }
 }
