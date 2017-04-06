@@ -581,7 +581,11 @@ def collectReceiptData(manifestData, metadataObj):
         data["file_type"] = output["file_type"]
         data["file_path"] = output["file_path"]
         #ADDING CLOUD
-        data["cloud"] = output["cloud"]
+        if "cloud" in output:
+            data["cloud"] = output["cloud"]
+        else:
+            data["cloud"] = ""
+        #data["cloud"] = output["cloud"]
         fileName = os.path.basename(output["file_path"])
     
         data["file_uuid"] = manifestData[fileName]
