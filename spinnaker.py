@@ -400,7 +400,8 @@ def getWorkflowObjects(flatMetadataObjs):
         wf_outputsObj.append(fileInfoObj)
         fileInfoObj["file_type"] = metaObj["file_type"]
         fileInfoObj["file_path"] = metaObj["file_path"]
-
+        #ADDING CLOUD INFO
+        fileInfoObj["cloud"] = metaObj["cloud"]
     return commonObjMap
 
 
@@ -579,7 +580,12 @@ def collectReceiptData(manifestData, metadataObj):
         data = copy.deepcopy(commonData)
         data["file_type"] = output["file_type"]
         data["file_path"] = output["file_path"]
-
+        #ADDING CLOUD
+        if "cloud" in output:
+            data["cloud"] = output["cloud"]
+        else:
+            data["cloud"] = ""
+        #data["cloud"] = output["cloud"]
         fileName = os.path.basename(output["file_path"])
     
         data["file_uuid"] = manifestData[fileName]
@@ -594,7 +600,7 @@ def writeReceipt(collectedReceipts, receiptFileName, d="\t"):
     write an upload receipt file
     '''
     with open(receiptFileName, 'w') as receiptFile:
-        fieldnames = ["program", "project", "center_name", "submitter_donor_id", "donor_uuid", "submitter_donor_primary_site", "submitter_specimen_id", "specimen_uuid", "submitter_specimen_type", "submitter_experimental_design", "submitter_sample_id", "sample_uuid", "analysis_type", "workflow_name", "workflow_version", "file_type", "file_path", "file_uuid", "bundle_uuid", "metadata_uuid"]
+        fieldnames = ["program", "project", "center_name", "submitter_donor_id", "donor_uuid", "submitter_donor_primary_site", "submitter_specimen_id", "specimen_uuid", "submitter_specimen_type", "submitter_experimental_design", "submitter_sample_id", "sample_uuid", "analysis_type", "workflow_name", "workflow_version", "file_type", "file_path", "file_uuid", "bundle_uuid", "metadata_uuid", "cloud"]
         writer = csv.DictWriter(receiptFile, fieldnames=fieldnames, delimiter=d)
 
         writer.writeheader()
